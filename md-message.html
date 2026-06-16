@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD's Message | NexCore Energy Co. Limited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #f59e0b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { line-height: 1.8; color: #334155; background-color: #fff; overflow-x: hidden; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: var(--primary); border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo {
+            font-weight: 800; font-size: 1.5rem; color: var(--white);
+            letter-spacing: -1px; text-decoration: none;
+            z-index: 1001; /* Keep logo above mobile menu overlay */
+        }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .btn-nav { background: var(--accent); color: var(--primary) !important; padding: 10px 20px; border-radius: 4px; transition: 0.3s; font-weight: bold; }
+        .btn-nav:hover { background: var(--white) !important; }
+
+        /* --- MOBILE MENU TOGGLE --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1001; /* Keep toggle above mobile menu overlay */
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+
+        /* Header */
+        .page-header {
+            padding: 150px 20px 80px;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)),
+                        url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            text-align: center; color: var(--white);
+        }
+        .breadcrumb { color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 2px; font-size: 0.8rem; }
+        h1 { font-size: 3rem; text-transform: uppercase; margin-top: 10px; letter-spacing: -1px; }
+
+        /* Message Content */
+        .message-section {
+            padding: 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+        }
+
+        .md-profile { text-align: center; }
+        .md-photo {
+            width: 100%; border-radius: 8px;
+            background: #f1f5f9;
+            border-bottom: 5px solid var(--accent);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .md-name { font-weight: 800; color: var(--primary); font-size: 1.3rem; }
+        .md-title { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .message-text { font-size: 1.15rem; color: #475569; }
+        .message-text p { margin-bottom: 25px; }
+
+        .highlight-box {
+            background: #f8fafc;
+            padding: 40px;
+            border-left: 5px solid var(--accent);
+            margin: 40px 0;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .motto {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .motto span { color: var(--accent); }
+
+        /* Footer */
+        footer { padding: 50px; text-align: center; background: #070b14; color: #475569; font-size: 0.8rem; }
+
+        /* Responsive adjustments for the grid */
+        @media (max-width: 900px) {
+            .message-section { grid-template-columns: 1fr; }
+            .md-photo { max-width: 400px; }
+            h1 { font-size: 2.2rem; }
+        }
+
+        /* --- MOBILE RESPONSIVE NAV --- */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+
+            /* Mobile Menu Toggle Logic */
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateY(-100%);
+                transition: transform 0.4s ease-in-out;
+                z-index: 1000;
+            }
+
+            .nav-links.active { transform: translateY(0); }
+
+            .nav-links a { font-size: 1.2rem; }
+
+            /* Hamburger Animation */
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">NEXCORE <span>ENERGY CO. LTD</span></a>
+
+        <!-- Hamburger Menu -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="mission.html">Vision & Mission</a></li>
+            <li><a href="md-message.html" style="color: var(--accent);">MD's Message</a></li>
+            <li><a href="index.html#contact" class="btn-nav">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="breadcrumb">Leadership Perspective</div>
+        <h1>Message from the MD</h1>
+    </header>
+
+    <!-- Message Content Section -->
+    <section class="message-section">
+        <div class="md-profile reveal">
+            <!-- Replace src with the actual MD photo link -->
+            <img src="md.png" alt="Managing Director" class="md-photo">
+            <div class="md-name">Managing Director</div>
+            <div class="md-title">NexCore Energy Co. Limited</div>
+        </div>
+
+        <div class="message-text reveal">
+            <p>At **NexCore Energy Co. Limited**, our mission is to help oil and gas operators maximize production, improve operational efficiency, and reduce costs through innovative production enhancement and strategic procurement solutions.</p>
+
+            <div class="highlight-box">
+                "With deep knowledge of the Niger Delta operating environment, we combine technical expertise and local content advantages to deliver value-driven services."
+            </div>
+
+            <p>Our integrated approach ensures timely access to quality resources, efficient project execution, and measurable improvements in asset performance. What makes NexCore the preferred choice is our commitment to excellence, safety, integrity, and stakeholder value.</p>
+
+            <p>We work closely with our clients to overcome operational challenges, optimize production, and support sustainable growth. As Nigeria's energy industry evolves, NexCore remains dedicated to delivering practical solutions that enhance performance and strengthen supply chains.</p>
+
+            <div class="motto">
+                NexCore Energy Co. Limited — <span>Enhancing Production. Delivering Value.</span>
+            </div>
+
+            <p style="margin-top: 40px; font-weight: 700; color: var(--primary);">
+                Sincerely,<br>
+                <span style="font-weight: 400; color: #64748b;">Managing Director</span>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 NexCore Energy Co. Limited | Integrated Oil & Gas Solutions
+    </footer>
+
+    <script>
+        // Reveal animation logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle Script
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

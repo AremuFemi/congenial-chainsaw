@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision & Mission | Nexcore Energy Co.LTD</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- SHARED CSS VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --accent: #f59e0b; /* Industrial Gold */
+            --accent-hover: #d97706;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --glass: rgba(15, 23, 42, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            line-height: 1.6;
+            color: #334155;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--primary);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--white);
+            letter-spacing: -1px;
+            text-decoration: none;
+            z-index: 1001; /* Keep logo above mobile menu overlay */
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        .btn-nav {
+            background: var(--accent);
+            color: var(--primary) !important;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-nav:hover {
+            background: var(--white) !important;
+            color: var(--primary) !important;
+        }
+
+        /* --- MOBILE MENU TOGGLE --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1001; /* Keep toggle above mobile menu overlay */
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+
+        /* --- SUB-HERO SECTION --- */
+        .page-header {
+            padding: 150px 20px 80px;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
+                        url('https://images.pexels.com/photos/11139595/pexels-photo-11139595.jpeg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .breadcrumb {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+        }
+
+        /* --- VISION & MISSION BLOCKS --- */
+        .strategy-container {
+            max-width: 1100px;
+            margin: -50px auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .strategy-card {
+            background: var(--white);
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--accent);
+        }
+
+        .label {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .strategy-card h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .strategy-card p {
+            font-size: 1.05rem;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        /* --- CORE PILLARS SECTION --- */
+        .objectives {
+            padding: 100px 50px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            font-weight: 800;
+        }
+
+        .objectives-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .obj-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            transition: 0.4s;
+            text-align: left;
+            border-left: 4px solid var(--primary);
+        }
+
+        .obj-card:nth-child(2),
+        .obj-card:nth-child(4) {
+            border-left-color: var(--accent);
+        }
+
+        .obj-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-left-color: var(--accent);
+        }
+
+        .obj-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .obj-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* --- FOOTER --- */
+        footer { padding: 50px; text-align: center; background: #070b14; color: #475569; font-size: 0.8rem; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .strategy-container { grid-template-columns: 1fr; margin-top: 20px; }
+            nav { padding: 15px 20px; }
+
+            /* Mobile Menu Toggle Logic */
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateY(-100%);
+                transition: transform 0.4s ease-in-out;
+                z-index: 1000;
+            }
+
+            .nav-links.active { transform: translateY(0); }
+
+            .nav-links a { font-size: 1.2rem; }
+
+            /* Hamburger Animation */
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">NEXCORE <span>ENERGY CO.LTD</span></a>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="md-message.html">MD's Message</a></li>
+            <li><a href="index.html#contact" class="btn-nav">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="breadcrumb">Strategic Pillars</div>
+        <h1>Vision & Mission</h1>
+    </header>
+
+    <section class="strategy-container">
+        <div class="strategy-card reveal">
+            <span class="label">Strategic Vision</span>
+            <h2>Global Benchmark for Asset Optimization</h2>
+            <p>To be the definitive global benchmark for high-integrity support services and asset optimization across the oil and gas value chain, driving industrial advancement through technical innovation and uncompromised engineering precision.</p>
+        </div>
+        <div class="strategy-card reveal">
+            <span class="label">Corporate Mission</span>
+            <h2>Integrated Energy Support</h2>
+            <p>To engineer resilient energy support architectures, deploy strategic global procurement networks, and deliver world-class technical field operations that minimize operational risk, maximize asset lifecycles, and accelerate corporate productivity with absolute safety.</p>
+        </div>
+    </section>
+
+    <section class="objectives">
+        <div class="container-narrow">
+            <span class="label">Strategic Foundation</span>
+            <h2 class="section-title">Core Pillars of Execution</h2>
+
+            <div class="objectives-grid">
+                <div class="obj-card reveal">
+                    <h3>Operational Excellence</h3>
+                    <p>We enforce absolute efficiency and quality across our core segments, matching elite technical execution with strict timeline and budgetary milestones.</p>
+                </div>
+                <div class="obj-card reveal">
+                    <h3>Supply Chain Integrity</h3>
+                    <p>Mitigating material risks through rigorous vendor qualification, strict third-party inspections, and optimized just-in-time logistics.</p>
+                </div>
+                <div class="obj-card reveal">
+                    <h3>Uncompromising Safety</h3>
+                    <p>Embedding rigorous HSE audits and safety system implementation directly into our technical field workflows and environmental stewardship.</p>
+                </div>
+                <div class="obj-card reveal">
+                    <h3>Asset Lifespan Maximization</h3>
+                    <p>Leveraging preventive and predictive maintenance paradigms to eliminate hardware vulnerabilities and avoid catastrophic breakdowns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 Nexcore Energy Co. Limited | Integrated Oil & Gas Solutions
+    </footer>
+
+    <script>
+        // Reveal Animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle Script
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
